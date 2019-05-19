@@ -1,1 +1,19 @@
-[]
+[{
+	"id": 1,
+	"title": "Microsoft Lumia 650",
+	"price": 5000,
+	"img": "img/lumia_650.png",
+	"count": "2"
+}, {
+	"id": 3,
+	"title": "Apple iPhone X",
+	"price": 45000,
+	"img": "img/3-1.png",
+	"count": "3"
+}, {
+	"id": 2,
+	"title": "Xiaomi Mi8 6/256GB",
+	"price": 31200,
+	"img": "img/2-1.png",
+	"count": 1
+}]
