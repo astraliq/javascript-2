@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<title>Интернет магазин</title>
+</head>
+
+<body>
+	<div id="app">
+		<header>
+			<div class="head">
+				<i class="icon">&#xe800;</i><a href="#">Вход</a>
+				<i class="icon">&#xe801;</i><a href="#">Регистрация</a>
+				<a href="#"><i class="icon">&#xf0c9;</i></a>
+			</div>
+			<a href="#" class="logo" id="up"><img src="img/logo.png" alt="logo"></a>
+			<search></search>
+<!--
+			<div class="search_div">
+				<input type="text" class="searchline" placeholder="Искать..." v-model="searchLine" @keyup.enter="FilterGoods()">
+				<button class="searchline_btn" type="button" @click="FilterGoods()">Найти</button>
+			</div>
+-->
+			<ul class="menu">
+				<li><a href="#">Главная</a></li>
+				<li><a href="#">Каталог&nbsp;&nbsp;<i class="icon">&#xf0c9;</i></a>
+				</li>
+				<li><a href="#">Доставка и оплата</a></li>
+				<li><a href="#">Контакты</a></li>
+				<li><button class="btn-cart" type="button" @click="openCloseBusket()">Корзина</button></li>
+			</ul>
+			<ul class="menu-md">
+				<li><a href="#">Вход</a></li>
+				<li><a href="#">Регистрация</a></li>
+			</ul>
+		</header>
+		<main id="content_of_items">
+			<h2 class="products_title all_titles">Каталог товаров</h2>
+			<products :products="filteredProducts" @add-product="addProduct"></products>
+			<cart :cart_items="productsInCart" :visibility="visibility" @change_visibility="openCloseBusket" @clear="resetBasket" :sum_of_products="sumOfProductsCart" @remove="deleteProductCart" @change_quantity="changeCount"></cart>
+		</main>
+		<div class="footer">
+			<a href="#up"><img src="img/upar_nowm.png" height="50" alt="Наверх" title="Наверх"></a>
+			<div class="footer_center">
+				<img class="footer_logo" src="img/logo2.png" alt="logo">
+				<a href="#"><i class="icon">&#xf09a;</i></a>
+				<a href="#"><i class="icon">&#xf189;</i></a>
+				<a href="#"><i class="icon">&#xf099;</i></a>
+				<a href="#"><i class="icon">&#xf16d;</i></a>
+			</div>
+			<p>Все&nbsp;права&nbsp;защищены &copy;&nbsp;2019&nbsp;&copy; All&nbsp;rights&nbsp;reserved
+				<br><a href="https://geekbrains.ru" target="_blank">Geekbrains</a></p>
+		</div>
+	</div>
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script src="js/SearchComp.js"></script>
+	<script src="js/CartComp.js"></script>
+    <script src="js/ProdComp.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>
