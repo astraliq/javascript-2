@@ -69,7 +69,8 @@ Vue.component('cart', {
 			if (this.productsInCart.length == 1) {
 				this.resetBasket()
 			} else {
-				this.productsInCart.splice(product.number - 1,1);
+				
+				this.productsInCart.splice(this.productsInCart.indexOf(product),1);
 				this.sumOfProducts();
 			}
 		}
