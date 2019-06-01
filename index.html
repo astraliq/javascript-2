@@ -17,20 +17,14 @@
 				<a href="#"><i class="icon">&#xf0c9;</i></a>
 			</div>
 			<a href="#" class="logo" id="up"><img src="img/logo.png" alt="logo"></a>
-			<search></search>
-<!--
-			<div class="search_div">
-				<input type="text" class="searchline" placeholder="Искать..." v-model="searchLine" @keyup.enter="FilterGoods()">
-				<button class="searchline_btn" type="button" @click="FilterGoods()">Найти</button>
-			</div>
--->
+			<search ref="search"></search>
 			<ul class="menu">
 				<li><a href="#">Главная</a></li>
 				<li><a href="#">Каталог&nbsp;&nbsp;<i class="icon">&#xf0c9;</i></a>
 				</li>
 				<li><a href="#">Доставка и оплата</a></li>
 				<li><a href="#">Контакты</a></li>
-				<li><button class="btn-cart" type="button" @click="openCloseBusket()">Корзина</button></li>
+				<li><button class="btn-cart" type="button" @click="displayCart">Корзина</button></li>
 			</ul>
 			<ul class="menu-md">
 				<li><a href="#">Вход</a></li>
@@ -39,8 +33,8 @@
 		</header>
 		<main id="content_of_items">
 			<h2 class="products_title all_titles">Каталог товаров</h2>
-			<products :products="filteredProducts" @add-product="addProduct"></products>
-			<cart :cart_items="productsInCart" :visibility="visibility" @change_visibility="openCloseBusket" @clear="resetBasket" :sum_of_products="sumOfProductsCart" @remove="deleteProductCart" @change_quantity="changeCount"></cart>
+			<products ref="products"></products>
+			<cart ref="cart"></cart>
 		</main>
 		<div class="footer">
 			<a href="#up"><img src="img/upar_nowm.png" height="50" alt="Наверх" title="Наверх"></a>
@@ -56,9 +50,9 @@
 		</div>
 	</div>
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
-	<script src="js/SearchComp.js"></script>
 	<script src="js/CartComp.js"></script>
     <script src="js/ProdComp.js"></script>
+	<script src="js/SearchComp.js"></script>
 	<script src="js/main.js"></script>
 </body>
 
