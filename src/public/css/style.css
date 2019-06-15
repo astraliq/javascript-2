@@ -1,10 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Roboto:100,400,700');
-@font-face {
-  font-family: 'fontello';
-  src: url(../fonts/fontello.svg) format('svg'), url(../fonts/fontello.woff) format('woff'), url(../fonts/fontello.ttf) format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
+/*@font-face {
+	font-family: 'fontello';
+	src: url(../fonts/fontello.svg) format('svg'),
+		url(../fonts/fontello.woff) format('woff'),
+		url(../fonts/fontello.ttf) format('truetype');
+	font-weight: normal;
+	font-style: normal;
+}*/
 html,
 body {
   padding: 0;
@@ -334,9 +336,11 @@ main {
   line-height: 24px;
   text-align: left;
 }
+/*
 .spcn {
-  list-style-image: url(img/mark.png);
+	list-style-image: url(img/mark.png);
 }
+*/
 .feedbackform {
   width: 100%;
   margin: 0 auto;
@@ -445,7 +449,6 @@ textarea {
   border-top: none;
 }
 .longspec_table td:nth-child(2)::before {
-  content: url(img/mark.png);
   padding-right: 10px;
 }
 .longspec_table td:nth-child(2) {
