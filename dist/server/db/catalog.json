@@ -1,0 +1,41 @@
+[{
+	"id": 1,
+	"title": "Microsoft Lumia 650",
+	"img": "img/lumia_650.png",
+	"price": 5000
+}, {
+	"id": 2,
+	"title": "Xiaomi Mi8 6/256GB",
+	"img": "img/2-1.png",
+	"price": 31200
+}, {
+	"id": 3,
+	"title": "Apple iPhone X",
+	"img": "img/3-1.png",
+	"price": 45000
+}, {
+	"id": 4,
+	"title": "Apple iPhone 7",
+	"img": "img/Apple-iPhone-7-Rose-Gold.png",
+	"price": 35000
+}, {
+	"id": 5,
+	"title": "Apple iPhone 6se",
+	"img": "img/iphone-6se.png",
+	"price": 25000
+}, {
+	"id": 6,
+	"title": "Samsung Galaxy s10",
+	"img": "img/SamsungGalaxyS10_Pink.png",
+	"price": 50000
+}, {
+	"id": 7,
+	"title": "Nokia 5",
+	"img": "img/nokia-5.png",
+	"price": 15000
+}, {
+	"id": 8,
+	"title": "Nokia 6",
+	"img": "img/nokia6.png",
+	"price": 30000
+}]
