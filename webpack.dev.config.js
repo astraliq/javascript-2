@@ -56,6 +56,27 @@ module.exports = {
                 to: 'fonts/[name].[ext]',
                 toType: 'template'
             }
+        ]),
+		new CopyPlugin([
+            {
+                from: 'src/public/pages/',
+                to: 'pages/[name].[ext]',
+                toType: 'template'
+            }
+        ]),
+		new CopyPlugin([
+            {
+                from: 'src/public/css/',
+                to: 'css/[name].[ext]',
+                toType: 'template'
+            }
+        ]),
+		new CopyPlugin([
+            {
+                from: 'src/public/templates/',
+                to: 'templates/[name].[ext]',
+                toType: 'template'
+            }
         ])
     ]
 }
