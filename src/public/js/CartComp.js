@@ -128,7 +128,7 @@ const cart = {
 	},
 	template: `<div class="basket" v-show="visibility">
 				<h2 class="basket_name">Корзина</h2>
-				<div class="cross" @click="this.openCloseBusket"></div>
+				<div class="cross" @click="this.openCloseBusket">+</div>
 				<table class="basket-items">
 					<tbody class="basket-items_header">
 						<tr class="basket-header">

@@ -1,9 +1,9 @@
 [
     {
         "quantity": 1,
-        "id": 2,
-        "title": "Xiaomi Mi8 6/256GB",
-        "img": "img/2-1.png",
-        "price": 31200
+        "id": 1,
+        "title": "Microsoft Lumia 650",
+        "img": "img/lumia_650.png",
+        "price": 5000
     }
 ]

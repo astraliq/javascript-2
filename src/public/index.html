@@ -27,14 +27,14 @@
 	<div id="app">
 		<header>
 			<div class="head">
-				<i class="icon">&#xe800;</i><a href="/">Вход</a>
+				<i class="icon">&#xe800;</i><a href="/" name="up">Вход</a>
 				<i class="icon">&#xe801;</i><a href="/">Регистрация</a>
-				<a href="/"><i class="icon">&#xf0c9;</i></a>
+<!--				<a href="/"><i class="icon">&#xf0c9;</i></a>-->
 			</div>
 			<a href="/" class="logo"><img src="img/logo.png" alt="logo"></a>
 			<ul class="menu">
 				<li><a href="/">Главная</a></li>
-				<li><a href="/catalog">Каталог&nbsp;&nbsp;<i class="icon">&#xf0c9;</i></a>
+				<li><a href="/catalog">Каталог&nbsp;&nbsp;<i class="icon icon_catalog">&#xf0c9;</i></a>
 					<ul class="menu2">
 						<li><a href="/phone1">Lumia 650</a></li>
 						<li><a href="/phone2">Xiaomi Mi8</a></li>
@@ -46,10 +46,6 @@
 				<li><button class="btn-cart" type="button" @click="displayCart">Корзина</button></li>
 			</ul>
 			<cart ref="cart"></cart>
-			<ul class="menu-md">
-				<li><a href="/">Вход</a></li>
-				<li><a href="/">Регистрация</a></li>
-			</ul>
 		</header>
 		<div class="container-fluid">
 			<div class="banner">
@@ -83,7 +79,7 @@
 			</div>
 			<div class="content">
 				<div class="greeting_block text-center">
-					<h3 class="greeting">Добро пожаловать в наш интернет-магазин!</h3>
+					<h3 class="greeting">Добро пожаловать <br> в наш интернет-магазин!</h3>
 					<p class="greetingtext text-justify">Одним из&nbsp;самых ценных для человека ресурсов всегда было и&nbsp;остаётся время. Грамотно распоряжаться им&nbsp;&mdash; большое умение. Интернет магазин Allsmarts рад помочь Вам сэкономить время и&nbsp;силы, предоставив возможность совершать покупки не&nbsp;выходя из&nbsp;дома! В&nbsp;нашем магазине&nbsp;Вы можете купить любой смартфон. Это не&nbsp;значит, что каталог ограничен только этими категориями товаров. Например, у&nbsp;нас&nbsp;Вы можете приобрести дополнительный аксессуары и принадлежности.</p>
 					<p class="greetingtext text-justify">Почему наши покупатели выбирают именно Allsmarts? Всё очень просто&nbsp;&mdash; мы&nbsp;предоставляем самые низкие цены и&nbsp;хороший сервис. Allsmarts по&nbsp;праву считается дешёвым интернет магазином, ведь продавая дёшево, мы&nbsp;&mdash; продаём много, соответственно получаем лучшие цены у&nbsp;производителей и&nbsp;поставщиков. Ко&nbsp;всему в&nbsp;нашем интернет магазине бытовой техники установлены доступные цены на&nbsp;все самые свежие новинки ведущих брендов. Выбирая нас, Вы&nbsp;получаете не&nbsp;только минимальные цены и&nbsp;хороший сервис, но&nbsp;и&nbsp;огромный ассортимент, гарантию на&nbsp;приобретённую технику от&nbsp;производителя, а&nbsp;так&nbsp;же возможность покупки в&nbsp;рассрочку или кредит. Для жителей других регионов страны мы&nbsp;готовы предложить быструю доставку внутри городов и&nbsp;областей.</p>
 				</div>
@@ -94,10 +90,10 @@
 			<a href="#up"><img src="img/upar_nowm.png" height="50" alt="Наверх" title="Наверх"></a>
 			<div class="footer_center">
 				<img class="footer_logo" src="img/logo2.png" alt="logo">
-				<a href="/"><i class="icon">&#xf09a;</i></a>
-				<a href="/"><i class="icon">&#xf189;</i></a>
-				<a href="/"><i class="icon">&#xf099;</i></a>
-				<a href="/"><i class="icon">&#xf16d;</i></a>
+				<a href="/"><i class="icon footer_icon">&#xf09a;</i></a>
+				<a href="/"><i class="icon footer_icon">&#xf189;</i></a>
+				<a href="/"><i class="icon footer_icon">&#xf099;</i></a>
+				<a href="/"><i class="icon footer_icon">&#xf16d;</i></a>
 			</div>
 			<p>Все&nbsp;права&nbsp;защищены &copy;&nbsp;2019&nbsp;&copy; All&nbsp;rights&nbsp;reserved
 				<br><a href="https://geekbrains.ru" target="_blank">Geekbrains</a></p>
