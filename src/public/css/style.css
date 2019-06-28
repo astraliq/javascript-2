@@ -751,12 +751,12 @@ input[type=button]:active {
   border-radius: 9px;
   color: #ffffff;
   font-size: 20px;
-  padding: 11px 34px 10px 34px;
+  padding: 5px 10px 10px 10px;
   text-decoration: none;
   cursor: pointer;
   position: absolute;
-  top: -80px;
-  right: 15px;
+  top: 45px;
+  right: 10px;
 }
 .btn-cart:hover {
   background: #3cb0fd;
@@ -783,7 +783,7 @@ input[type=button]:active {
 .product-item {
   margin: 10px;
   min-height: 230px;
-  width: 182px;
+  width: 165px;
   border: 1px solid black;
   border-radius: 20px;
   background: rgba(156, 156, 156, 0.4);
@@ -791,7 +791,7 @@ input[type=button]:active {
 .product-item-h3 {
   margin: 10px 5px;
   max-width: 90%;
-  font-size: 17px;
+  font-size: 14px;
 }
 .product-item-price {
   display: block;
