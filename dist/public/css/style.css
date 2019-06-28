@@ -751,11 +751,11 @@ input[type=button]:active {
   border-radius: 9px;
   color: #ffffff;
   font-size: 20px;
-  padding: 5px 10px 10px 10px;
+  padding: 2px 5px 5px 5px;
   text-decoration: none;
   cursor: pointer;
   position: absolute;
-  top: 45px;
+  top: 50px;
   right: 10px;
 }
 .btn-cart:hover {
