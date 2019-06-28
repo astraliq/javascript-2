@@ -37,7 +37,7 @@ body {
   display: inline-block;
   text-decoration: inherit;
   width: 1em;
-  margin: 0 .2em 0 70px;
+  margin: 0 .2em 0 50px;
   text-align: center;
 }
 header {
@@ -55,7 +55,7 @@ header {
 .head a {
   text-decoration: none;
   color: whitesmoke;
-  margin: 0 53px 0 0;
+  padding: 0 40px 0 0;
 }
 main {
   width: 100%;
