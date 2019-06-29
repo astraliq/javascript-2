@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/forms.css" type="text/css">
+	<title>Allsmarts - регистрация</title>
+
+	<style>
+		body {
+			background-color: #f8f8f8;
+			background-image: url(img/background.png);
+			background-repeat: no-repeat;
+			background-size: cover;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="app">
+		<%- include('header.ejs'); %>
+		
+		<h4 class="products_title">Регистрация</h4>
+		
+		<form method="post" action="/form/registration">
+		
+			<div class="contacts">
+			<span class="contacts-name">Контактные данные</span>
+			<div class="contacts-block">
+				<label for="login">Логин / e-mail:</label>
+				<input class="contacts-input" type="login" placeholder="Логин / Электронная почта" id="login" name="login" required>
+				<label for="pass">Пароль:</label>
+				<input class="contacts-input" type="password" placeholder="Пароль" id="pass" name="pass" required>
+				<label for="pass_repeat">Повтор пароля:</label>
+				<input class="contacts-input" type="password" placeholder="Повторите пароль" id="pass_repeat" name="pass_repeat" required>
+			</div>
+		</div>
+		<div class="name">
+			<span class="name-name">персональные данные</span>
+			<div class="name-block">
+				<label for="surname">фамилия:</label>
+				<input class="name-input" type="text" placeholder="Фамилия" id="surname" name="surname">
+				<label for="first_name">имя:</label>
+				<input class="name-input" type="text" placeholder="Имя" id="first_name" name="first_name">
+				<label for="phone_number">телефон:</label>
+				<input class="name-input" type="tel" placeholder="+7 ХХХ ХХХ ХХ ХХ" id="phone_number" name="phone_number">
+			</div>
+		</div>
+		
+		<input class="submit" type="submit" id="submit" value="отправить">
+		<input class="reset" type="reset" value="очистить">
+	</form>
+	</div>
+	
+	<%- include('footer.ejs'); %>
+
+	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
+	<script type="text/javascript" src="js/main.js"></script>
+
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+</body>
+
+</html>

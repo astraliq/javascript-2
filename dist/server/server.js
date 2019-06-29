@@ -115,7 +115,18 @@ eval("var express = __webpack_require__(/*! express */ \"express\");\n\nvar hand
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var cart = __webpack_require__(/*! ./cart */ \"./src/server/cart.js\");\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar actions = {\n  add: cart.add,\n  change: cart.change,\n  remove: cart.remove\n};\n\nvar logger = __webpack_require__(/*! ./logger */ \"./src/server/logger.js\");\n\nvar handler = function handler(req, res, action, file) {\n  fs.readFile(file, 'utf-8', function (err, data) {\n    if (err) {\n      res.sendStatus(404, JSON.stringify({\n        result: 0,\n        text: err\n      }));\n    } else {\n      var _actions$action = actions[action](JSON.parse(data), req),\n          newCart = _actions$action.newCart,\n          name = _actions$action.name;\n\n      fs.writeFile(file, newCart, function (err) {\n        if (err) {\n          res.sendStatus(404, JSON.stringify({\n            result: 0,\n            text: err\n          }));\n        } else {\n          logger(name, action);\n          res.send({\n            result: 1,\n            text: 'Success!'\n          });\n        }\n      });\n    }\n  });\n};\n\nmodule.exports = handler;\n\n//# sourceURL=webpack:///./src/server/handler.js?");
+eval("var cart = __webpack_require__(/*! ./cart */ \"./src/server/cart.js\");\n\nvar reg = __webpack_require__(/*! ./reg */ \"./src/server/reg.js\");\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar actions = {\n  add: cart.add,\n  change: cart.change,\n  remove: cart.remove,\n  add_user: reg.add,\n  change_user: reg.change,\n  remove_user: reg.remove\n};\n\nvar logger = __webpack_require__(/*! ./logger */ \"./src/server/logger.js\");\n\nvar handler = function handler(req, res, action, file) {\n  fs.readFile(file, 'utf-8', function (err, data) {\n    if (err) {\n      res.sendStatus(404, JSON.stringify({\n        result: 0,\n        text: err\n      }));\n    } else {\n      var _actions$action = actions[action](JSON.parse(data), req),\n          newCart = _actions$action.newCart,\n          name = _actions$action.name;\n\n      fs.writeFile(file, newCart, function (err) {\n        if (err) {\n          res.sendStatus(404, JSON.stringify({\n            result: 0,\n            text: err\n          }));\n        } else {\n          logger(name, action);\n          res.send({\n            result: 1,\n            text: 'Success!'\n          });\n        }\n      });\n    }\n  });\n};\n\nmodule.exports = handler;\n\n//# sourceURL=webpack:///./src/server/handler.js?");
+
+/***/ }),
+
+/***/ "./src/server/handlerData.js":
+/*!***********************************!*\
+  !*** ./src/server/handlerData.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var reg = __webpack_require__(/*! ./reg */ \"./src/server/reg.js\");\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar actions = {\n  add: reg.add,\n  change: reg.change,\n  remove: reg.remove\n};\n\nvar logger = __webpack_require__(/*! ./logger */ \"./src/server/logger.js\");\n\nvar handlerData = function handlerData(req, res, action, file) {\n  fs.readFile(file, 'utf-8', function (err, data) {\n    if (err) {//            res.sendStatus(404, JSON.stringify({result: 0, text: err}));\n    } else {\n      var _actions$action = actions[action](JSON.parse(data), req),\n          newData = _actions$action.newData,\n          name = _actions$action.name;\n\n      fs.writeFile(file, newData, function (err) {\n        if (err) {//                    res.sendStatus(404, JSON.stringify({result: 0, text: err}));\n        } else {\n          logger(name, action); //                    res.send({result: 1, text: 'Success!'})\n        }\n      });\n    }\n  });\n};\n\nmodule.exports = handlerData;\n\n//# sourceURL=webpack:///./src/server/handlerData.js?");
 
 /***/ }),
 
@@ -130,6 +141,17 @@ eval("var moment = __webpack_require__(/*! moment */ \"moment\");\n\nvar fs = __
 
 /***/ }),
 
+/***/ "./src/server/reg.js":
+/*!***************************!*\
+  !*** ./src/server/reg.js ***!
+  \***************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("var add = function add(reg, req) {\n  reg.push(req.body);\n  return {\n    newData: JSON.stringify(reg, null, 4),\n    name: req.body.login\n  };\n};\n\nvar change = function change(reg, req) {\n  var find = reg.find(function (el) {\n    return +el.id === +req.params.id;\n  });\n  find.quantity += +req.body.quantity;\n  return {\n    newData: JSON.stringify(reg, null, 4),\n    name: find.login\n  };\n};\n\nvar remove = function remove(reg, req) {\n  var find = reg.find(function (el) {\n    return el.id === +req.body.login;\n  });\n\n  if (req.body.login) {\n    reg.splice(reg.indexOf(find), 1);\n  } else reg = [];\n\n  return {\n    newData: JSON.stringify(reg, null, 4),\n    name: find != undefined ? find.login : 'все данные'\n  };\n};\n\nmodule.exports = {\n  add: add,\n  change: change,\n  remove: remove\n};\n\n//# sourceURL=webpack:///./src/server/reg.js?");
+
+/***/ }),
+
 /***/ "./src/server/server.js":
 /*!******************************!*\
   !*** ./src/server/server.js ***!
@@ -137,7 +159,18 @@ eval("var moment = __webpack_require__(/*! moment */ \"moment\");\n\nvar fs = __
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("var express = __webpack_require__(/*! express */ \"express\");\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar cart = __webpack_require__(/*! ./cartRouter */ \"./src/server/cartRouter.js\");\n\nvar app = express();\n\nvar path = __webpack_require__(/*! path */ \"path\");\n\nvar PORT = process.env.PORT || 5000;\napp.use(express.json());\napp.use('/api/cart', cart);\napp.use('/', express[\"static\"]('dist/public'));\napp.set('views', path.join('dist/public/templates'));\napp.set('view engine', 'ejs'); //const catalogRouter = express.Router();\n//catalogRouter.use(\"/:id\", (req, res) => res.render('index', {id: req.params.id}));\n//catalogRouter.use(\"/\", (req, res) => res.render('index', {page: 'catalog'}));\n\napp.get('/api/products', function (req, res) {\n  fs.readFile('dist/server/db/catalog.json', 'utf-8', function (err, data) {\n    if (err) {\n      res.sendStatus(404, JSON.stringify({\n        result: 0,\n        text: err\n      }));\n    } else {\n      res.send(data);\n    }\n  });\n});\napp.get('/', function (req, res) {\n  return res.sendFile(path.join(__dirname, '../public', 'index.html'));\n});\napp.get('/:page', function (req, res) {\n  return res.render('index', {\n    page: req.params.page,\n    id: undefined\n  });\n});\napp.get('/catalog/:id', function (req, res) {\n  res.render('index', {\n    page: 'catalog',\n    id: req.params.id\n  });\n  app.use('/catalog/', express[\"static\"]('dist/public'));\n}); //app.use(\"/catalog\", catalogRouter);\n\napp.listen(PORT, function () {\n  return console.log(\"Listening on \".concat(PORT));\n});\n\n//# sourceURL=webpack:///./src/server/server.js?");
+eval("var express = __webpack_require__(/*! express */ \"express\");\n\nvar fs = __webpack_require__(/*! fs */ \"fs\");\n\nvar cart = __webpack_require__(/*! ./cartRouter */ \"./src/server/cartRouter.js\");\n\nvar app = express();\n\nvar path = __webpack_require__(/*! path */ \"path\");\n\nvar PORT = process.env.PORT || 5000;\n\nvar bodyParser = __webpack_require__(/*! body-parser */ \"body-parser\");\n\nvar nodemailer = __webpack_require__(/*! nodemailer */ \"nodemailer\");\n\nvar urlencodedParser = bodyParser.urlencoded({\n  extended: false\n});\n\nvar handlerData = __webpack_require__(/*! ./handlerData */ \"./src/server/handlerData.js\");\n\nvar transporter = nodemailer.createTransport({\n  service: \"Gmail\",\n  auth: {\n    type: 'OAuth2',\n    user: 'astraliq457@gmail.com',\n    clientId: '835275659984-jadq6p5khqfllsk2l6l4g3ivjop7q8lo.apps.googleusercontent.com',\n    clientSecret: 'klDgpVFI1DxseDx4W-Y6oxIR',\n    refreshToken: '1/FKzV1ogh2_V-RBv3bT_ROSCZgs_v2XUFpZVQhGMAIOmYRtPaBFuHZnC106Q9X37a',\n    accessToken: 'ya29.Gls2B6K7NfGuq3D0LiMAqzD3tyQBjBfZoelwOE79TvZhPX9LKvwxOheb2nJNCb3n-Ef0PV0D1zryziiEj-YAKh6wQ1FOb_JJbx0hjq246frS8I0mNiU6FGPrIg5p',\n    expires: 1561833908646\n  }\n});\napp.use(express.json());\napp.use(\"/api/cart\", cart);\napp.use(\"/\", express[\"static\"](\"dist/public\"));\napp.set(\"views\", path.join(\"dist/public/templates\"));\napp.set(\"view engine\", \"ejs\"); //const catalogRouter = express.Router();\n//catalogRouter.use(\"/:id\", (req, res) => res.render('index', {id: req.params.id}));\n//catalogRouter.use(\"/\", (req, res) => res.render('index', {page: 'catalog'}));\n\napp.get(\"/api/products\", function (req, res) {\n  fs.readFile(\"dist/server/db/catalog.json\", \"utf-8\", function (err, data) {\n    if (err) {\n      res.sendStatus(404, JSON.stringify({\n        result: 0,\n        text: err\n      }));\n    } else {\n      res.send(data);\n    }\n  });\n}); //app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public', 'index.html')));\n\napp.get(\"/:page\", function (req, res) {\n  return res.render(\"index.ejs\", {\n    page: req.params.page,\n    id: undefined\n  });\n});\napp.get(\"/catalog/:id\", function (req, res) {\n  res.render(\"index\", {\n    page: \"catalog\",\n    id: req.params.id\n  });\n  app.use(\"/catalog/\", express[\"static\"](\"dist/public\"));\n});\napp.get(\"/form/registration\", function (req, res) {\n  res.render(\"reg\");\n  app.use(\"/form/\", express[\"static\"](\"dist/public\"));\n});\napp.get(\"/form/login\", function (req, res) {\n  res.render(\"login\");\n  app.use(\"/form/\", express[\"static\"](\"dist/public\"));\n});\napp.post(\"/form/registration\", urlencodedParser, function (req, res) {\n  if (!req.body) return res.sendStatus(400);\n  console.log(req.body.login);\n  var message = '<b>Зарегистрирован новый пользователь: </b>' + req.body.login + '<br><b>Фамилия: </b></b>' + req.body.surname + '<br><b>Имя: </b></b>' + req.body.first_name + '<br><p>Данные регистрации: </p><br>' + JSON.stringify(req.body, null, 4);\n  console.log(message);\n  transporter.sendMail({\n    from: \"astraliq457@gmail.com\",\n    to: \"astraliq457@gmail.com\",\n    subject: \"Зарегистрирован новый пользователь\",\n    text: \"Регистрация!\",\n    html: message\n  });\n  handlerData(req, res, 'add', 'dist/server/db/userData.json');\n  res.render(\"sucsess_reg.ejs\", {\n    data: req.body\n  });\n}); //app.use(\"/catalog\", catalogRouter);\n\napp.listen(PORT, function () {\n  return console.log(\"Listening on \".concat(PORT));\n});\n\n//# sourceURL=webpack:///./src/server/server.js?");
+
+/***/ }),
+
+/***/ "body-parser":
+/*!******************************!*\
+  !*** external "body-parser" ***!
+  \******************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"body-parser\");\n\n//# sourceURL=webpack:///external_%22body-parser%22?");
 
 /***/ }),
 
@@ -171,6 +204,17 @@ eval("module.exports = require(\"fs\");\n\n//# sourceURL=webpack:///external_%22
 /***/ (function(module, exports) {
 
 eval("module.exports = require(\"moment\");\n\n//# sourceURL=webpack:///external_%22moment%22?");
+
+/***/ }),
+
+/***/ "nodemailer":
+/*!*****************************!*\
+  !*** external "nodemailer" ***!
+  \*****************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+eval("module.exports = require(\"nodemailer\");\n\n//# sourceURL=webpack:///external_%22nodemailer%22?");
 
 /***/ }),
 

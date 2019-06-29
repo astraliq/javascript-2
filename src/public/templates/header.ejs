@@ -1,0 +1,21 @@
+<header>
+	<div class="head">
+		<i class="icon">&#xe800;</i><a href="/form/login" name="login">Вход</a>
+		<i class="icon">&#xe801;</i><a href="/form/registration" name="reg">Регистрация</a>
+	</div>
+	<a href="/" class="logo"><img src="img/logo.png" alt="logo"></a>
+	<ul class="menu">
+		<li><a href="/">Главная</a></li>
+		<li><a href="/catalog">Каталог&nbsp;&nbsp;<i class="icon icon_catalog">&#xf0c9;</i></a>
+			<ul class="menu2">
+				<li><a href="/catalog/1">Lumia 650</a></li>
+				<li><a href="/catalog/2">Xiaomi Mi8</a></li>
+				<li><a href="/catalog/3">iPhone X</a></li>
+			</ul>
+		</li>
+		<li><a href="/delivery">Доставка и оплата</a></li>
+		<li><a href="/contacts">Контакты</a></li>
+		<li><button class="btn-cart" type="button" @click="displayCart">Корзина</button></li>
+	</ul>
+	<cart ref="cart"></cart>
+</header>

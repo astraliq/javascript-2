@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<title>Allsmarts</title>
+	<title>Allsmarts - <%- page %></title>
 
 	<style>
 		body {
@@ -21,60 +21,37 @@
 
 <body>
 	<div id="app">
-		<header>
-			<div class="head">
-				<i class="icon">&#xe800;</i><a href="/" name="up">Вход</a>
-				<i class="icon">&#xe801;</i><a href="/">Регистрация</a>
-			</div>
-			<a href="/" class="logo"><img src="img/logo.png" alt="logo"></a>
-			<ul class="menu">
-				<li><a href="/">Главная</a></li>
-				<li><a href="/catalog">Каталог&nbsp;&nbsp;<i class="icon icon_catalog">&#xf0c9;</i></a>
-					<ul class="menu2">
-						<li><a href="/catalog/1">Lumia 650</a></li>
-						<li><a href="/catalog/2">Xiaomi Mi8</a></li>
-						<li><a href="/catalog/3">iPhone X</a></li>
-					</ul>
-				</li>
-				<li><a href="/delivery">Доставка и оплата</a></li>
-				<li><a href="/contacts">Контакты</a></li>
-				<li><button class="btn-cart" type="button" @click="displayCart">Корзина</button></li>
-			</ul>
-			<cart ref="cart"></cart>
-
-		</header>
-		<% if (page === 'catalog' && typeof id == 'undefined') { %>
-		<%- include('catalog.ejs'); %>
-		<% } else if (page === 'delivery') { %>
-		<%- include('delivery.ejs'); %>
-		<% } else if (id == 1) { %>
-		<%- include('phone1.ejs'); %>
-		<% } else if (id == 2) { %>
-		<%- include('phone2.ejs'); %>
-		<% } else if (id == 3) { %>
-		<%- include('phone3.ejs'); %>
+		<%- include('header.ejs'); %>
+		
+		<% if (typeof page != 'undefined') { %>
+			<% if (page === 'catalog' && typeof id == 'undefined') { %>
+			<%- include('catalog.ejs'); %>
+			<% } else if (page === 'delivery') { %>
+			<%- include('delivery.ejs'); %>
+			<% } else if (id == 1) { %>
+			<%- include('phone1.ejs'); %>
+			<% } else if (id == 2) { %>
+			<%- include('phone2.ejs'); %>
+			<% } else if (id == 3) { %>
+			<%- include('phone3.ejs'); %>
+			<% } else if (id > 3) { %>
+			<%- include('nodata.ejs'); %>
+			<% } %>
+			
+		<% } else { %>
+			<%- include('main.ejs'); %>
 		<% } %>
 	</div>
-	<%	if (page === 'contacts') { %>
-	<%- include('contacts.ejs'); %>
+	<% if (typeof page != 'undefined') { %>
+		<%	if (page === 'contacts') { %>
+		<%- include('contacts.ejs'); %>
+		<% } %>
 	<% } %>
-	<div class="footer">
-		<a href="#up"><img src="img/upar_nowm.png" height="50" alt="Наверх" title="Наверх"></a>
-		<div class="footer_center">
-			<img class="footer_logo" src="img/logo2.png" alt="logo">
-			<a href="/"><i class="icon footer_icon">&#xf09a;</i></a>
-			<a href="/"><i class="icon footer_icon">&#xf189;</i></a>
-			<a href="/"><i class="icon footer_icon">&#xf099;</i></a>
-			<a href="/"><i class="icon footer_icon">&#xf16d;</i></a>
-		</div>
-		<p>Все&nbsp;права&nbsp;защищены &copy;&nbsp;2019&nbsp;&copy; All&nbsp;rights&nbsp;reserved
-			<br><a href="https://geekbrains.ru" target="_blank">Geekbrains</a></p>
-	</div>
-
+	
+	<%- include('footer.ejs'); %>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>
 	<script type="text/javascript" src="js/main.js"></script>
-
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>

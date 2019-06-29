@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<title>Allsmarts - <%- page %></title>
+	<title>Allsmarts - вход</title>
 
 	<style>
 		body {
@@ -23,30 +23,8 @@
 	<div id="app">
 		<%- include('header.ejs'); %>
 		
-		<% if (typeof page != 'undefined') { %>
-			<% if (page === 'catalog' && typeof id == 'undefined') { %>
-			<%- include('catalog.ejs'); %>
-			<% } else if (page === 'delivery') { %>
-			<%- include('delivery.ejs'); %>
-			<% } else if (id == 1) { %>
-			<%- include('phone1.ejs'); %>
-			<% } else if (id == 2) { %>
-			<%- include('phone2.ejs'); %>
-			<% } else if (id == 3) { %>
-			<%- include('phone3.ejs'); %>
-			<% } else if (id > 3) { %>
-			<%- include('nodata.ejs'); %>
-			<% } %>
-			
-		<% } else { %>
-			<%- include('main.ejs'); %>
-		<% } %>
+		<h4>Форма входа</h4>
 	</div>
-	<% if (typeof page != 'undefined') { %>
-		<%	if (page === 'contacts') { %>
-		<%- include('contacts.ejs'); %>
-		<% } %>
-	<% } %>
 	
 	<%- include('footer.ejs'); %>
 

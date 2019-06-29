@@ -871,3 +871,7 @@ input[type=button]:active {
   background-image: -o-linear-gradient(top, #3498db, #2980b9);
   background-image: linear-gradient(to bottom, #3498db, #2980b9);
 }
+.nodata {
+  text-align: center;
+  margin: 50px 0 0 0;
+}

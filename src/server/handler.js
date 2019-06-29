@@ -1,10 +1,14 @@
 const cart = require('./cart');
+const reg = require('./reg');
 const fs = require('fs');
 
 const actions = {
     add: cart.add,
     change: cart.change,
-	remove: cart.remove
+	remove: cart.remove,
+	add_user: reg.add,
+    change_user: reg.change,
+	remove_user: reg.remove
 }
 
 const logger = require('./logger');
