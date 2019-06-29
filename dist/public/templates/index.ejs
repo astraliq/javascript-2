@@ -31,9 +31,9 @@
 				<li><a href="/">Главная</a></li>
 				<li><a href="/catalog">Каталог&nbsp;&nbsp;<i class="icon icon_catalog">&#xf0c9;</i></a>
 					<ul class="menu2">
-						<li><a href="/phone1">Lumia 650</a></li>
-						<li><a href="/phone2">Xiaomi Mi8</a></li>
-						<li><a href="/phone3">iPhone X</a></li>
+						<li><a href="/catalog/1">Lumia 650</a></li>
+						<li><a href="/catalog/2">Xiaomi Mi8</a></li>
+						<li><a href="/catalog/3">iPhone X</a></li>
 					</ul>
 				</li>
 				<li><a href="/delivery">Доставка и оплата</a></li>
@@ -43,15 +43,15 @@
 			<cart ref="cart"></cart>
 
 		</header>
-		<% if (page === 'catalog') { %>
+		<% if (page === 'catalog' && typeof id == 'undefined') { %>
 		<%- include('catalog.ejs'); %>
 		<% } else if (page === 'delivery') { %>
 		<%- include('delivery.ejs'); %>
-		<% } else if (page === 'phone1') { %>
+		<% } else if (id == 1) { %>
 		<%- include('phone1.ejs'); %>
-		<% } else if (page === 'phone2') { %>
+		<% } else if (id == 2) { %>
 		<%- include('phone2.ejs'); %>
-		<% } else if (page === 'phone3') { %>
+		<% } else if (id == 3) { %>
 		<%- include('phone3.ejs'); %>
 		<% } %>
 	</div>

@@ -154,12 +154,11 @@
 				<p> Особенности система 3D-сканирования лиц</p>
 				<p>Дата анонсирования 2018-05-31</p>
 				<p> Перед покупкой уточняйте характеристики и комплектацию у продавца.</p><br>
-				<form action="#">
-					<input type="button" value="Купить">
-				</form>
+				<getdatalist ref="getdatalist"></getdatalist>
+				<button class="in_basket" type="button" @click="$root.$refs.cart.addProduct($root.$refs.getdatalist.products[<%-id - 1%>])">Купить</button>
 			</div>
 			<br><br>
-			<div><a href="phone1.html" class="page_turn">Предыдущий товар</a> <a href="phone3.html">Следующий товар</a></div>
+			<div><a href="<%-id-1%>" class="page_turn">Предыдущий товар</a> <a href="<%- id +1%>">Следующий товар</a></div>
 			<br><br>
 		</div>
 	</div>

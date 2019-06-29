@@ -2,7 +2,7 @@
 import cart from './CartComp.js'
 import products from './ProdComp.js'
 import search from './SearchComp.js'
-
+import getdatalist from './GetData.js'
 
 const URL = `https://raw.githubusercontent.com/astraliq/javascript-2/master`;
 
@@ -11,7 +11,8 @@ let app = {
 	components: {
 		cart,
 		products,
-		search
+		search,
+		getdatalist
 	},
 
 	methods : {

@@ -1,8 +1,10 @@
 const product = {
     props: ['product'],
     template: `<div class="product-item">
-					<h3 class="product-item-h3"> {{ product.title }} </h3>
-					<img class="basket_img" :src="product.img" :alt="product.title" :title="product.title">
+    				<a :href="'/catalog/' + product.id">
+						<h3 class="product-item-h3"> {{ product.title }} </h3>
+						<img class="basket_img" :src="product.img" :alt="product.title" :title="product.title">
+					</a>
 					<span class="product-item-price">  {{ product.price }}  руб.</span>
 					<button class="in_basket" :id="product.id" :data-title="product.title" :data-price="product.price" @click="$root.$refs.cart.addProduct(product)">В корзину</button>
 				</div>`
@@ -47,6 +49,9 @@ const products = {
 				this.filteredProducts = this.products;
 			}
 			this.searchKeys = value.length;
+		},
+		getProduct(id) {
+			return this.products[id];
 		},
 	},
     template: `<div class="products">

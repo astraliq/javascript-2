@@ -15316,6 +15316,63 @@ var cart = {
 
 /***/ }),
 
+/***/ "./src/public/js/GetData.js":
+/*!**********************************!*\
+  !*** ./src/public/js/GetData.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+var getdatalist = {
+  data: function data() {
+    return {
+      products: []
+    };
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    this.$parent.getJson("/api/products").then(function (data) {
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = data[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var elem = _step.value;
+
+          _this.products.push(elem);
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator["return"] != null) {
+            _iterator["return"]();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+    });
+  },
+  methods: {
+    getProduct: function getProduct(id) {
+      console.log(this.products[id]);
+      return this.products[id];
+    }
+  },
+  template: " "
+};
+/* harmony default export */ __webpack_exports__["default"] = (getdatalist);
+
+/***/ }),
+
 /***/ "./src/public/js/ProdComp.js":
 /*!***********************************!*\
   !*** ./src/public/js/ProdComp.js ***!
@@ -15327,7 +15384,7 @@ var cart = {
 __webpack_require__.r(__webpack_exports__);
 var product = {
   props: ['product'],
-  template: "<div class=\"product-item\">\n\t\t\t\t\t<h3 class=\"product-item-h3\"> {{ product.title }} </h3>\n\t\t\t\t\t<img class=\"basket_img\" :src=\"product.img\" :alt=\"product.title\" :title=\"product.title\">\n\t\t\t\t\t<span class=\"product-item-price\">  {{ product.price }}  \u0440\u0443\u0431.</span>\n\t\t\t\t\t<button class=\"in_basket\" :id=\"product.id\" :data-title=\"product.title\" :data-price=\"product.price\" @click=\"$root.$refs.cart.addProduct(product)\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</button>\n\t\t\t\t</div>"
+  template: "<div class=\"product-item\">\n    \t\t\t\t<a :href=\"'/catalog/' + product.id\">\n\t\t\t\t\t\t<h3 class=\"product-item-h3\"> {{ product.title }} </h3>\n\t\t\t\t\t\t<img class=\"basket_img\" :src=\"product.img\" :alt=\"product.title\" :title=\"product.title\">\n\t\t\t\t\t</a>\n\t\t\t\t\t<span class=\"product-item-price\">  {{ product.price }}  \u0440\u0443\u0431.</span>\n\t\t\t\t\t<button class=\"in_basket\" :id=\"product.id\" :data-title=\"product.title\" :data-price=\"product.price\" @click=\"$root.$refs.cart.addProduct(product)\">\u0412 \u043A\u043E\u0440\u0437\u0438\u043D\u0443</button>\n\t\t\t\t</div>"
 };
 var stub = {
   props: [],
@@ -15391,6 +15448,9 @@ var products = {
       }
 
       this.searchKeys = value.length;
+    },
+    getProduct: function getProduct(id) {
+      return this.products[id];
     }
   },
   template: "<div class=\"products\">\n\t\t\t\t<stub v-if=\"!products.length\"></stub>\n\t\t\t\t<product v-for=\"product of filteredProducts\" :key=\"product.id\" :product=\"product\"></product>\n\t\t\t</div>"
@@ -15432,7 +15492,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _CartComp_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CartComp.js */ "./src/public/js/CartComp.js");
 /* harmony import */ var _ProdComp_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProdComp.js */ "./src/public/js/ProdComp.js");
 /* harmony import */ var _SearchComp_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./SearchComp.js */ "./src/public/js/SearchComp.js");
+/* harmony import */ var _GetData_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GetData.js */ "./src/public/js/GetData.js");
 //"use strict"
+
 
 
 
@@ -15442,7 +15504,8 @@ var app = {
   components: {
     cart: _CartComp_js__WEBPACK_IMPORTED_MODULE_0__["default"],
     products: _ProdComp_js__WEBPACK_IMPORTED_MODULE_1__["default"],
-    search: _SearchComp_js__WEBPACK_IMPORTED_MODULE_2__["default"]
+    search: _SearchComp_js__WEBPACK_IMPORTED_MODULE_2__["default"],
+    getdatalist: _GetData_js__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   methods: {
     getJson: function getJson(url) {

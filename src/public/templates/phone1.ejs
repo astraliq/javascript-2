@@ -164,12 +164,11 @@
 				<p>Комплектация смартфон, аккумулятор, зарядное устройство</p>
 				<p>Дата анонсирования 2016-02-15</p><br>
 				<p>Перед покупкой уточняйте характеристики и&nbsp;комплектацию у&nbsp;продавца.</p><br>
-				<form action="#">
-					<input type="button" value="Купить">
-				</form>
+				<getdatalist ref="getdatalist"></getdatalist>
+				<button class="in_basket" type="button" @click="$root.$refs.cart.addProduct($root.$refs.getdatalist.products[<%-id - 1%>])">Купить</button>
 			</div>
 			<br><br>
-			<div><a href="phone2.html" class="page_turn">Следующий товар</a></div>
+			<div><a href="<%- id + 1%>" class="page_turn">Следующий товар</a></div>
 			<br>
 		</div>
 	</div>
