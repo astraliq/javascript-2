@@ -18,6 +18,7 @@ form {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: center;
+	margin: 0 0 20px 0;
 }
 
 input {
@@ -203,69 +204,17 @@ input {
 	}*/
 }
 
-.name {
-	width: 100%;
-	background-color: @color1;
-	min-height: 150px;
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	padding: 50px 0 0 0;
-	box-sizing: border-box;
-	flex-wrap: wrap;
-
-	&-name {
-		text-transform: uppercase;
-		margin: 0 10px 0 120px;
-		font-weight: bold;
-		color: @color3;
-		width: 150px;
-	}
-
-	&-block {
-		display: -webkit-flex;
-		display: -moz-flex;
-		display: -ms-flex;
-		display: -o-flex;
-		display: flex;
-		flex-wrap: wrap;
-		width: 70%;
-	}
-
-	&-input {
-		margin: 0 0 10px 5px;
-		width: 70%;
-		padding: 0 0 0 10px;
-		border: none;
-		border-bottom: 2px solid black;
-		height: 25px;
-		text-transform: capitalize;
-	}
-
-	& label {
-		font-size: 18px;
-		font-weight: bold;
-		width: 18%;
-		&:first-letter {
-			text-transform: capitalize;
-		}
-	}
-}
-
 label[for=login]:after,
 label[for=pass]:after,
 label[for=pass_repeat]:after {
 	content: " *";
 }
 
-
 input::placeholder {
 	text-transform: none;
 }
 
-.contacts {
+.data_block {
 	width: 100%;
 	background-color: @color2;
 	min-height: 150px;
@@ -274,16 +223,22 @@ input::placeholder {
 	display: -ms-flex;
 	display: -o-flex;
 	display: flex;
-	padding: 50px 0 0 0;
+	padding: 15px 0 0 0;
 	box-sizing: border-box;
 	flex-wrap: wrap;
-
+	justify-content: center;
+	
+	&:last-child {
+		background-color: @color1;
+	}
+	
 	&-name {
 		text-transform: uppercase;
-		margin: 0 10px 0 120px;
+		margin: 10px 0px 10px 0px;
 		font-weight: bold;
 		color: @color3;
-		width: 150px;
+		width: 100%;
+		text-align: center;
 	}
 
 	&-block {
@@ -293,12 +248,14 @@ input::placeholder {
 		display: -o-flex;
 		display: flex;
 		flex-wrap: wrap;
-		width: 70%;
+		width: 100%;
+		font-size: 14px;
 	}
 
 	&-input {
+		font-size: 13px;
 		margin: 0 0 10px 5px;
-		width: 70%;
+		width: 60%;
 		padding: 0 40px 0 10px;
 		border: none;
 		border-bottom: 2px solid black;
@@ -307,9 +264,10 @@ input::placeholder {
 	}
 
 	& label {
-		font-size: 18px;
+		font-size: 13px;
 		font-weight: bold;
-		width: 18%;
+		margin: 0 0 0 10px;
+		width: 32%;
 		&:first-letter {
 			text-transform: capitalize;
 		}
