@@ -264,3 +264,9 @@ input[type=reset]:active {
   font-weight: 700;
   width: 100%;
 }
+input:invalid:not(:placeholder-shown) {
+  border-color: red;
+}
+input:valid:not(:placeholder-shown) {
+  border-color: green;
+}

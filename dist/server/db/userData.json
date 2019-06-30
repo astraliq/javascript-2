@@ -5,6 +5,7 @@
         "pass_repeat": "qwerty",
         "surname": "Хананин",
         "first_name": "Антон",
-        "phone_number": "+712345678"
+        "phone_number": "+712345678",
+		"id": "1"
     }
 ]

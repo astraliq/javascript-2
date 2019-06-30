@@ -6,19 +6,84 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const nodemailer = require("nodemailer");
 const handlerData = require('./handlerData');
+const session = require('express-session');
 app.use(express.json());
 app.use(express.urlencoded({
 	extended: false
 }));
-
-let login = false;
+app.set("views", path.join("dist/public/templates"));
+app.set("view engine", "ejs");
+app.use("/api/cart", cart);
+app.use("/", express.static("dist/public"));
 //const bodyParser = require("body-parser");
-
 //const urlencodedParser = bodyParser.urlencoded({
-//	extended: false
+//	extended: true
 //});
 
+app.use(session({
+	name: 'sid',
+	secret: '%&*()Q%C7ytwc4tatv9se54tvym890',
+	resave: false,
+	saveUninitialized: true,
+	cookie: {
+		secure: false,
+		maxAge: 1000 * 60 * 60 * 0.1,
+		sameSite: true,
+	}
+}))
 
+app.use((req, res, next) => {
+	const {
+		userId
+	} = req.session;
+	if (userId) {
+		fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+			if (err) {
+				res.sendStatus(404, JSON.stringify({
+					result: 0,
+					text: err
+				}));
+				console.log('Ошибка при чтении файла dist/server/db/userData.json');
+			} else {
+				let users = JSON.parse(data);
+				res.locals.user = users.find(
+					user => +user.id == userId
+				)
+			}
+		})
+	}
+	next()
+})
+
+const redirectLogin = (req, res, next) => {
+	if (!req.session.userId) {
+		res.redirect('/form/login')
+	} else {
+		next()
+	}
+}
+
+const redirectHome = (req, res, next) => {
+	if (req.session.userId) {
+		res.redirect('/main')
+	} else {
+		next()
+	}
+}
+
+let nextUserId;
+
+fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+	if (err) {
+		console.log('Ошибка при чтении файла dist/server/db/userData.json');
+	} else {
+		let dataFile = JSON.parse(data);
+		nextUserId = +dataFile[dataFile.length - 1].id + 1;
+		console.log(JSON.parse(data));
+	}
+})
+
+//app.set('trust proxy', 1) // trust first proxy
 
 let transporter = nodemailer.createTransport({
 	service: "Gmail",
@@ -33,12 +98,20 @@ let transporter = nodemailer.createTransport({
 	}
 });
 
-app.use(express.json());
-
-app.use("/api/cart", cart);
-app.use("/", express.static("dist/public"));
-app.set("views", path.join("dist/public/templates"));
-app.set("view engine", "ejs");
+let loadUser = function (req, res, next) {
+	if (req.session.user_id) {
+		User.findById(req.session.user_id, function (user) {
+			if (user) {
+				req.currentUser = user;
+				next();
+			} else {
+				res.redirect('/form/login');
+			}
+		});
+	} else {
+		res.redirect('/form/login');
+	}
+}
 
 //const catalogRouter = express.Router();
 //catalogRouter.use("/:id", (req, res) => res.render('index', {id: req.params.id}));
@@ -59,12 +132,23 @@ app.get("/api/products", (req, res) => {
 		}
 	});
 });
-//app.get('/', (req, res) => res.sendFile(path.join(__dirname, '../public', 'index.html')));
-app.get("/:page", (req, res) =>
+app.get('/', (req, res) => {
+	
 	res.render("index.ejs", {
 		page: req.params.page,
-		id: undefined
-	})
+		id: undefined,
+		user: null
+	});
+});
+app.get("/:page", (req, res) => {
+
+	res.render("index.ejs", {
+			page: req.params.page,
+			id: undefined,
+			user: null
+		});
+	}
+
 );
 app.get("/catalog/:id", (req, res) => {
 	res.render("index", {
@@ -73,34 +157,66 @@ app.get("/catalog/:id", (req, res) => {
 	});
 	app.use("/catalog/", express.static("dist/public"));
 });
-app.get("/form/registration", (req, res) => {
+app.get("/form/registration", redirectHome, (req, res) => {
 	res.render("reg");
 	app.use("/form/", express.static("dist/public"));
 });
-app.get("/form/login", (req, res) => {
+app.get("/form/login", redirectHome, (req, res) => {
 	res.render("login");
 	app.use("/form/", express.static("dist/public"));
 });
 
-app.post("/form/registration", function (req, res) {
+app.post("/form/registration", redirectHome, function (req, res) {
 	if (!req.body) return res.sendStatus(400);
-	console.log(req.body.login);
-	let message = '<b>Зарегистрирован новый пользователь: </b>' + req.body.login + '<br><b>Фамилия: </b></b>' + req.body.surname + '<br><b>Имя: </b></b>' + req.body.first_name + '<br><p>Данные регистрации: </p><br>' + JSON.stringify(req.body, null, 4);
-	console.log(message);
-	transporter.sendMail({
-		from: "astraliq457@gmail.com",
-		to: "astraliq457@gmail.com",
-		subject: "Зарегистрирован новый пользователь",
-		text: "Регистрация!",
-		html: message
-	});
-	handlerData(req, res, 'add', 'dist/server/db/userData.json');
-	res.render("sucsess_reg.ejs", {
-		data: req.body
-	});
+	const {
+		login,
+		surname,
+		first_name
+	} = req.body;
+	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.sendStatus(404, JSON.stringify({
+				result: 0,
+				text: err
+			}));
+			console.log('Ошибка при чтении файла dist/server/db/userData.json');
+		} else {
+			let usersData = JSON.parse(data);
+			const exists = usersData.some(
+				user => user.login = login
+			)
+			if (!exists) {
+				let message = '<b>Зарегистрирован новый пользователь: </b>' + login + '<br><b>Фамилия: </b></b>' + surname + '<br><b>Имя: </b></b>' + first_name + '<br><p>Данные регистрации: </p><br>' + JSON.stringify(req.body, null, 4);
+				console.log(message);
+				transporter.sendMail({
+					from: "astraliq457@gmail.com",
+					to: "astraliq457@gmail.com",
+					subject: "Зарегистрирован новый пользователь",
+					text: "Регистрация!",
+					html: message
+				});
+				req.body.id = nextUserId++;
+				handlerData(req, res, 'add', 'dist/server/db/userData.json');
+				req.session.userId = req.body.id;
+				res.render("sucsess_reg.ejs", {
+					data: req.body
+				});
+			} else {
+				res.render("login.ejs", {
+					status_login: false,
+					login: req.body.login,
+				});
+			}
+		}
+	})
+
 });
 
-app.post("/form/login", function (req, res) {
+app.post("/form/login", redirectHome, function (req, res) {
+	const {
+		login,
+		pass
+	} = req.body;
 	if (!req.body) return res.sendStatus(400);
 	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
 		if (err) {
@@ -108,13 +224,13 @@ app.post("/form/login", function (req, res) {
 				result: 0,
 				text: err
 			}));
+			console.log('Ошибка при чтении файла dist/server/db/userData.json');
 		} else {
 			let usersData = JSON.parse(data);
-			console.log(usersData);
-			let findLogin = usersData.find(el => el.login === req.body.login);
-			let findPass = findLogin.pass === req.body.pass ? true : false;
-			if (typeof findLogin != "undefined" && findPass == true) {
-				let message = 'Пользователь: ' + req.body.login + ' совершил вход!';
+			let findUser = usersData.find(el => el.login === login);
+			let checkPass = findUser.pass === pass ? true : false;
+			if (typeof findUser != "undefined" && checkPass == true) {
+				let message = 'Пользователь: ' + login + ' совершил вход!';
 				console.log(message);
 				//	transporter.sendMail({
 				//		from: "astraliq457@gmail.com",
@@ -124,10 +240,11 @@ app.post("/form/login", function (req, res) {
 				//		html: message
 				//	});
 				//	handlerData(req, res, 'add', 'dist/server/db/userData.json');
+				req.session.userId = findUser.id;
 				res.render("index.ejs", {
 					status_login: true,
 					page: 'main',
-					login: req.body.login,
+					login: login,
 					id: undefined
 				});
 			} else {
@@ -140,15 +257,16 @@ app.post("/form/login", function (req, res) {
 	})
 });
 
+app.post("/logout", redirectLogin, function (req, res) {
+	req.session.destroy(err => {
+		if (err) {
+			return res.redirect('/main')
+		}
+		res.clearCookie('sid');
+		res.redirect('/form/login');
+	})
+});
+
 //app.use("/catalog", catalogRouter);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
-
-fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
-	if (err) {
-		//            res.sendStatus(404, JSON.stringify({result: 0, text: err}));
-	} else {
-		//            res.send(data);
-		console.log(JSON.parse(data));
-	}
-})
