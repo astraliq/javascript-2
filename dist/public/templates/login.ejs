@@ -29,17 +29,22 @@
 			<div class="data_block">
 				<span class="data_block-name">контактные данные</span>
 				<div class="data_block-block">
-					<label for="login">Логин / e-mail:</label>
+					<label for="login">Логин / E-mail:</label>
 					<input class="data_block-input" type="login" placeholder="Логин / Электронная почта" id="login" name="login" required>
 					<label for="pass">Пароль:</label>
 					<input class="data_block-input" type="password" placeholder="Пароль" id="pass" name="pass" required>
 				</div>
 			</div>
-
+			<% if ( typeof status_login != 'undefined') { %>
+				<% if (!status_login) { %>
+				<p class="err_msg">Неверное имя пользователя или пароль</p>
+				<% } %>
+			<% } %>
 			<input class="submit" type="submit" id="submit" value="отправить">
 			<input class="reset" type="reset" value="очистить">
 		</form>
 	</div>
+	
 
 	<%- include('footer.ejs'); %>
 

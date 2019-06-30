@@ -112,11 +112,7 @@ app.post("/form/login", function (req, res) {
 			let usersData = JSON.parse(data);
 			console.log(usersData);
 			let findLogin = usersData.find(el => el.login === req.body.login);
-			console.log(findLogin);
-			console.log(req.body.login);
 			let findPass = findLogin.pass === req.body.pass ? true : false;
-
-			console.log(findPass);
 			if (typeof findLogin != "undefined" && findPass == true) {
 				let message = 'Пользователь: ' + req.body.login + ' совершил вход!';
 				console.log(message);
@@ -129,9 +125,15 @@ app.post("/form/login", function (req, res) {
 				//	});
 				//	handlerData(req, res, 'add', 'dist/server/db/userData.json');
 				res.render("index.ejs", {
+					status_login: true,
 					page: 'main',
 					login: req.body.login,
 					id: undefined
+				});
+			} else {
+				res.render("login.ejs", {
+					status_login: false,
+					login: req.body.login,
 				});
 			}
 		}

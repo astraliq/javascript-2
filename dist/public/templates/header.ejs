@@ -1,5 +1,7 @@
 <header>
-	<% if (typeof login == 'undefined') { %>
+	<% if (typeof login == 'undefined' || typeof status_login == 'undefined') { %>
+	<%- include('head.ejs'); %>
+	<% } else if (!status_login) { %>
 	<%- include('head.ejs'); %>
 	<% } else { %>
 	<%- include('head_login.ejs'); %>

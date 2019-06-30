@@ -1,4 +1,0 @@
-<div class="head">
-	<i class="icon">&#xe800;</i><a href="/form/login" name="sign_in">Вход</a>
-	<i class="icon">&#xe801;</i><a href="/form/registration" name="reg">Регистрация</a>
-</div>
