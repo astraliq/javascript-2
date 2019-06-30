@@ -7,9 +7,11 @@ const PORT = process.env.PORT || 5000;
 const nodemailer = require("nodemailer");
 const handlerData = require('./handlerData');
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({
+	extended: false
+}));
 
-
+let login = false;
 //const bodyParser = require("body-parser");
 
 //const urlencodedParser = bodyParser.urlencoded({
@@ -98,6 +100,53 @@ app.post("/form/registration", function (req, res) {
 	});
 });
 
+app.post("/form/login", function (req, res) {
+	if (!req.body) return res.sendStatus(400);
+	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+		if (err) {
+			res.sendStatus(404, JSON.stringify({
+				result: 0,
+				text: err
+			}));
+		} else {
+			let usersData = JSON.parse(data);
+			console.log(usersData);
+			let findLogin = usersData.find(el => el.login === req.body.login);
+			console.log(findLogin);
+			console.log(req.body.login);
+			let findPass = findLogin.pass === req.body.pass ? true : false;
+
+			console.log(findPass);
+			if (typeof findLogin != "undefined" && findPass == true) {
+				let message = 'Пользователь: ' + req.body.login + ' совершил вход!';
+				console.log(message);
+				//	transporter.sendMail({
+				//		from: "astraliq457@gmail.com",
+				//		to: "astraliq457@gmail.com",
+				//		subject: "Зарегистрирован новый пользователь",
+				//		text: "Регистрация!",
+				//		html: message
+				//	});
+				//	handlerData(req, res, 'add', 'dist/server/db/userData.json');
+				res.render("index.ejs", {
+					page: 'main',
+					login: req.body.login,
+					id: undefined
+				});
+			}
+		}
+	})
+});
+
 //app.use("/catalog", catalogRouter);
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+	if (err) {
+		//            res.sendStatus(404, JSON.stringify({result: 0, text: err}));
+	} else {
+		//            res.send(data);
+		console.log(JSON.parse(data));
+	}
+})

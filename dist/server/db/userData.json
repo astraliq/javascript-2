@@ -1,10 +1,10 @@
 [
     {
-        "login": "golova",
-        "pass": "asdfg",
-        "pass_repeat": "asdfg",
-        "surname": "Иванов",
-        "first_name": "Иван",
-        "phone_number": "+7 923 5553333"
+        "login": "admin",
+        "pass": "qwerty",
+        "pass_repeat": "qwerty",
+        "surname": "Хананин",
+        "first_name": "Антон",
+        "phone_number": "+712345678"
     }
 ]

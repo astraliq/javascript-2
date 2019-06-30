@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
+	<link rel="stylesheet" href="css/forms.css" type="text/css">
 	<title>Allsmarts - вход</title>
 
 	<style>
@@ -22,10 +23,24 @@
 <body>
 	<div id="app">
 		<%- include('header.ejs'); %>
-		
-		<h4>Форма входа</h4>
+
+		<form method="post" action="/form/login">
+
+			<div class="data_block">
+				<span class="data_block-name">контактные данные</span>
+				<div class="data_block-block">
+					<label for="login">Логин / e-mail:</label>
+					<input class="data_block-input" type="login" placeholder="Логин / Электронная почта" id="login" name="login" required>
+					<label for="pass">Пароль:</label>
+					<input class="data_block-input" type="password" placeholder="Пароль" id="pass" name="pass" required>
+				</div>
+			</div>
+
+			<input class="submit" type="submit" id="submit" value="отправить">
+			<input class="reset" type="reset" value="очистить">
+		</form>
 	</div>
-	
+
 	<%- include('footer.ejs'); %>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>

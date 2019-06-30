@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "login": "admin",
+        "pass": "qwerty",
+        "pass_repeat": "qwerty",
+        "surname": "Хананин",
+        "first_name": "Антон",
+        "phone_number": "+712345678"
+    }
+]

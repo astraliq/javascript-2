@@ -1,8 +1,9 @@
 <header>
-	<div class="head">
-		<i class="icon">&#xe800;</i><a href="/form/login" name="login">Вход</a>
-		<i class="icon">&#xe801;</i><a href="/form/registration" name="reg">Регистрация</a>
-	</div>
+	<% if (typeof login == 'undefined') { %>
+	<%- include('head.ejs'); %>
+	<% } else { %>
+	<%- include('head_login.ejs'); %>
+	<% } %>
 	<a href="/" class="logo"><img src="img/logo.png" alt="logo"></a>
 	<ul class="menu">
 		<li><a href="/">Главная</a></li>

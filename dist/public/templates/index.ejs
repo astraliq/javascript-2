@@ -6,7 +6,15 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
-	<title>Allsmarts - <%- page %></title>
+	<title>Allsmarts - 
+	<% if (typeof login == 'undefined') { %>
+	<%- page %>
+	<% } else { %>
+	<%- login %>
+	<% } %>
+	
+	
+	</title>
 
 	<style>
 		body {
@@ -36,6 +44,8 @@
 			<%- include('phone3.ejs'); %>
 			<% } else if (id > 3) { %>
 			<%- include('nodata.ejs'); %>
+			<% } else if (page === 'main') { %>
+			<%- include('main.ejs'); %>
 			<% } %>
 			
 		<% } else { %>
