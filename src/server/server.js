@@ -183,7 +183,7 @@ app.post("/form/registration", redirectHome, function (req, res) {
 		} else {
 			let usersData = JSON.parse(data);
 			const exists = usersData.some(
-				user => user.login = login
+				user => user.login == login
 			)
 			if (!exists) {
 				let message = '<b>Зарегистрирован новый пользователь: </b>' + login + '<br><b>Фамилия: </b></b>' + surname + '<br><b>Имя: </b></b>' + first_name + '<br><p>Данные регистрации: </p><br>' + JSON.stringify(req.body, null, 4);
