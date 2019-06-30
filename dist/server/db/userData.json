@@ -1,1 +1,10 @@
-[]
+[
+    {
+        "login": "golova",
+        "pass": "asdfg",
+        "pass_repeat": "asdfg",
+        "surname": "Иванов",
+        "first_name": "Иван",
+        "phone_number": "+7 923 5553333"
+    }
+]

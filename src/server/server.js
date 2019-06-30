@@ -4,12 +4,19 @@ const cart = require("./cartRouter");
 const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
-const bodyParser = require("body-parser");
 const nodemailer = require("nodemailer");
-const urlencodedParser = bodyParser.urlencoded({
-	extended: false
-});
 const handlerData = require('./handlerData');
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+
+//const bodyParser = require("body-parser");
+
+//const urlencodedParser = bodyParser.urlencoded({
+//	extended: false
+//});
+
+
 
 let transporter = nodemailer.createTransport({
 	service: "Gmail",
@@ -73,7 +80,7 @@ app.get("/form/login", (req, res) => {
 	app.use("/form/", express.static("dist/public"));
 });
 
-app.post("/form/registration", urlencodedParser, function (req, res) {
+app.post("/form/registration", function (req, res) {
 	if (!req.body) return res.sendStatus(400);
 	console.log(req.body.login);
 	let message = '<b>Зарегистрирован новый пользователь: </b>' + req.body.login + '<br><b>Фамилия: </b></b>' + req.body.surname + '<br><b>Имя: </b></b>' + req.body.first_name + '<br><p>Данные регистрации: </p><br>' + JSON.stringify(req.body, null, 4);
