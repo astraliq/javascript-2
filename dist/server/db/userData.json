@@ -1,18 +1,1 @@
-[
-    {
-        "login": "PUPOK",
-        "pass": "sdfsdfsdfsdf",
-        "pass_repeat": "sdfsdfsd",
-        "surname": "dasdas",
-        "first_name": "asdasdas",
-        "phone_number": "asdasd"
-    },
-    {
-        "login": "MAKAKA",
-        "pass": "pass",
-        "pass_repeat": "pass",
-        "surname": "Kaka",
-        "first_name": "matilda",
-        "phone_number": "ada21312"
-    }
-]
+[]
