@@ -13,8 +13,6 @@ app.use(express.urlencoded({
 }));
 app.set("views", path.join("dist/public/templates"));
 app.set("view engine", "ejs");
-app.use("/api/cart", cart);
-app.use("/", express.static("dist/public"));
 //const bodyParser = require("body-parser");
 //const urlencodedParser = bodyParser.urlencoded({
 //	extended: true
@@ -49,11 +47,17 @@ app.use((req, res, next) => {
 				res.locals.user = users.find(
 					user => +user.id == userId
 				)
+				console.log('use ' + res.locals.user);
 			}
 		})
 	}
 	next()
 })
+
+app.use("/api/cart", cart);
+app.use("/", express.static("dist/public"));
+
+
 
 const redirectLogin = (req, res, next) => {
 	if (!req.session.userId) {
@@ -133,15 +137,16 @@ app.get("/api/products", (req, res) => {
 	});
 });
 app.get('/', (req, res) => {
-	
+	console.log('/ ' + res.locals.user);
 	res.render("index.ejs", {
 		page: req.params.page,
 		id: undefined,
 		user: null
 	});
+	
 });
 app.get("/:page", (req, res) => {
-
+	console.log('page ' + res.locals.user);
 	res.render("index.ejs", {
 			page: req.params.page,
 			id: undefined,
