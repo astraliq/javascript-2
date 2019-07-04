@@ -6,6 +6,15 @@
         "surname": "Хананин",
         "first_name": "Антон",
         "phone_number": "+712345678",
-		"id": "1"
+        "id": "1"
+    },
+    {
+        "login": "swazy",
+        "pass": "123",
+        "pass_repeat": "123",
+        "surname": "",
+        "first_name": "",
+        "phone_number": "",
+        "id": 2
     }
 ]

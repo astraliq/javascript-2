@@ -157,7 +157,6 @@ app.get('/', (req, res) => {
 			} else {
 				console.log('ID сессии не найдена в зарегистрированных пользователях');
 			}
-		
 			console.log('page locals ' + res.locals.user);
 			console.log('page session ' + req.session.userId);
 			res.render("index.ejs", {
@@ -291,12 +290,17 @@ app.post("/form/registration", redirectHome, function (req, res) {
 				req.session.userId = req.body.id;
 				res.render("sucsess_reg.ejs", {
 					data: req.body,
-					user: req.session.userId
+					user: req.session.userId,
+					status_login: true,
+					login: login,
+					id: undefined
 				});
 			} else {
 				res.render("login.ejs", {
 					user: null,
 					login: req.body.login,
+					status_login: true,
+					id: undefined
 				});
 			}
 		}
