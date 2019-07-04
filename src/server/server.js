@@ -60,6 +60,7 @@ app.use("/", express.static("dist/public"));
 
 
 const redirectLogin = (req, res, next) => {
+	console.log(`req.session.userId ${req.session.userId}`);
 	if (!req.session.userId) {
 		res.redirect('/form/login')
 	} else {
@@ -137,37 +138,122 @@ app.get("/api/products", (req, res) => {
 	});
 });
 app.get('/', (req, res) => {
-	console.log('/ ' + res.locals.user);
-	res.render("index.ejs", {
-		page: req.params.page,
-		id: undefined,
-		user: null
-	});
+	const {
+		userId
+	} = req.session;
+	let user = null;
+	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+		if (err) {
+			console.log('Ошибка при чтении файла dist/server/db/userData.json');
+		} else {
+			let usersData = JSON.parse(data);
+			let findUser = usersData.find(el => el.id === userId);
+			console.log(`findUser ${findUser}`);
+			let login = null;
+			if (typeof findUser != "undefined") {
+				user = userId;
+				login = findUser.login
+				console.log('ID сессии найдена!');
+			} else {
+				console.log('ID сессии не найдена в зарегистрированных пользователях');
+			}
+		
+			console.log('page locals ' + res.locals.user);
+			console.log('page session ' + req.session.userId);
+			res.render("index.ejs", {
+				page: req.params.page,
+				id: undefined,
+				user: user,
+				login: login
+			});
+		}
+	})
 	
 });
 app.get("/:page", (req, res) => {
-	console.log('page ' + res.locals.user);
-	res.render("index.ejs", {
-			page: req.params.page,
-			id: undefined,
-			user: null
-		});
+	const {
+		userId
+	} = req.session;
+	let user = null;
+	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+		if (err) {
+			console.log('Ошибка при чтении файла dist/server/db/userData.json');
+		} else {
+			let usersData = JSON.parse(data);
+			let findUser = usersData.find(el => el.id === userId);
+			console.log(`findUser ${findUser}`);
+			let login = null;
+			if (typeof findUser != "undefined") {
+				user = userId;
+				login = findUser.login
+				console.log('ID сессии найдена!');
+			} else {
+				console.log('ID сессии не найдена в зарегистрированных пользователях');
+			}
+		
+			console.log('page locals ' + res.locals.user);
+			console.log('page session ' + req.session.userId);
+			res.render("index.ejs", {
+				page: req.params.page,
+				id: undefined,
+				user: user,
+				login: login
+			});
+		}
+	})
+	
 	}
 
 );
 app.get("/catalog/:id", (req, res) => {
-	res.render("index", {
-		page: "catalog",
-		id: req.params.id
-	});
+	const {
+		userId
+	} = req.session;
+	let user = null;
+	fs.readFile('dist/server/db/userData.json', 'utf-8', (err, data) => {
+		if (err) {
+			console.log('Ошибка при чтении файла dist/server/db/userData.json');
+		} else {
+			let usersData = JSON.parse(data);
+			let findUser = usersData.find(el => el.id === userId);
+			console.log(`findUser ${findUser}`);
+			let login = null;
+			if (typeof findUser != "undefined") {
+				user = userId;
+				login = findUser.login
+				console.log('ID сессии найдена!');
+			} else {
+				console.log('ID сессии не найдена в зарегистрированных пользователях');
+			}
+		
+			console.log('page locals ' + res.locals.user);
+			console.log('page session ' + req.session.userId);
+			res.render("index.ejs", {
+				page: "catalog",
+				id: req.params.id,
+				user: user,
+				login: login
+			});
+		}
+	})
 	app.use("/catalog/", express.static("dist/public"));
 });
 app.get("/form/registration", redirectHome, (req, res) => {
-	res.render("reg");
+	res.render("reg", {
+				page: null,
+				id: undefined,
+				user: null,
+				login: null
+			});
 	app.use("/form/", express.static("dist/public"));
 });
 app.get("/form/login", redirectHome, (req, res) => {
-	res.render("login");
+	res.render("login", {
+				page: null,
+				id: undefined,
+				user: null,
+				login: null
+			});
 	app.use("/form/", express.static("dist/public"));
 });
 
@@ -204,11 +290,12 @@ app.post("/form/registration", redirectHome, function (req, res) {
 				handlerData(req, res, 'add', 'dist/server/db/userData.json');
 				req.session.userId = req.body.id;
 				res.render("sucsess_reg.ejs", {
-					data: req.body
+					data: req.body,
+					user: req.session.userId
 				});
 			} else {
 				res.render("login.ejs", {
-					status_login: false,
+					user: null,
 					login: req.body.login,
 				});
 			}
@@ -255,14 +342,14 @@ app.post("/form/login", redirectHome, function (req, res) {
 			} else {
 				res.render("login.ejs", {
 					status_login: false,
-					login: req.body.login,
+					login: null,
 				});
 			}
 		}
 	})
 });
 
-app.post("/logout", redirectLogin, function (req, res) {
+app.get("/user/logout", redirectLogin, function (req, res) {
 	req.session.destroy(err => {
 		if (err) {
 			return res.redirect('/main')

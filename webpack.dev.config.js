@@ -49,11 +49,11 @@ module.exports = {
         ]
 	},
 	plugins: [
-        new HtmlWebpackPlugin({
-			template: 'src/public/index.html',
-			filename: 'index.html',
-			excludeChunks: ['server']
-		}),
+//        new HtmlWebpackPlugin({
+//			template: 'src/public/index.html',
+//			filename: 'index.html',
+//			excludeChunks: ['server']
+//		}),
 		new CopyPlugin([
 			{
 				from: 'src/public/img/',
