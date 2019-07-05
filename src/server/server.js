@@ -242,7 +242,8 @@ app.get("/form/registration", redirectHome, (req, res) => {
 				page: null,
 				id: undefined,
 				user: null,
-				login: null
+				login: null,
+				status_login: null,
 			});
 	app.use("/form/", express.static("dist/public"));
 });
@@ -292,14 +293,14 @@ app.post("/form/registration", redirectHome, function (req, res) {
 					data: req.body,
 					user: req.session.userId,
 					status_login: true,
-					login: login,
+					login: req.body.login,
 					id: undefined
 				});
 			} else {
-				res.render("login.ejs", {
+				res.render("reg.ejs", {
 					user: null,
-					login: req.body.login,
-					status_login: true,
+					login: null,
+					status_login: 'already exist',
 					id: undefined
 				});
 			}

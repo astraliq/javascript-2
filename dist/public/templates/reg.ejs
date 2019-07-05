@@ -50,7 +50,9 @@
 				<input class="data_block-input" type="tel" placeholder="+7 ХХХ ХХХ ХХ ХХ" id="phone_number" name="phone_number">
 			</div>
 		</div>
-		
+		<% if (status_login === 'already exist') { %>
+			<p class="err_msg">Пользователь с таким логином уже существует</p>
+		<% } %>
 		<input class="submit" type="submit" id="submit" value="отправить">
 		<input class="reset" type="reset" value="очистить">
 	</form>
