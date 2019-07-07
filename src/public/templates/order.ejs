@@ -7,7 +7,7 @@
 	<link rel="stylesheet" href="css/bootstrap.min.css">
 	<link rel="stylesheet" href="css/style.css" type="text/css">
 	<link rel="stylesheet" href="css/forms.css" type="text/css">
-	<title>Allsmarts - вход</title>
+	<title>Allsmarts - регистрация</title>
 
 	<style>
 		body {
@@ -23,29 +23,12 @@
 <body>
 	<div id="app">
 		<%- include('header.ejs'); %>
-
-		<form method="post" action="/form/login">
-
-			<div class="data_block">
-				<span class="data_block-name">вход в личный кабинет</span>
-				<div class="data_block-block">
-					<label for="login">Логин / E-mail:</label>
-					<input class="data_block-input" type="login" placeholder="Логин / Электронная почта" id="login" name="login" required>
-					<label for="pass">Пароль:</label>
-					<input class="data_block-input" type="password" placeholder="Пароль" id="pass" name="pass" required>
-				</div>
-			</div>
-			<% if ( typeof status_login != 'undefined') { %>
-				<% if (!status_login) { %>
-				<p class="err_msg">Неверное имя пользователя или пароль</p>
-				<% } %>
-			<% } %>
-			<input class="submit" type="submit" id="submit" value="войти">
-			<input class="reset" type="reset" value="очистить">
-		</form>
+		
+		<h4 class="products_title">Поздравляем.<br><br></h4>
+		<p>Вы заказали следующие товары <%- dataCart %></p>
+		
 	</div>
 	
-
 	<%- include('footer.ejs'); %>
 
 	<script src="https://cdn.jsdelivr.net/npm/vue@2.6.10/dist/vue.js"></script>

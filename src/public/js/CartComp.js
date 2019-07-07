@@ -95,6 +95,9 @@ const cart = {
                         }
                     })
 		},
+		order() {
+			this.$parent.postJson(`/user/order/`, this.productsInCart);
+		},
 //		findAlreadyExist(prodID){
 //			for (let i = 0; i < this.productsInCart.length; i++) {
 //				if (this.productsInCart[i].id == prodID) {return true;}
@@ -152,7 +155,10 @@ const cart = {
 				<table class="basket-items">
 					<tbody class="basket-items_footer">
 						<tr class="basket-last-row">
-							<td class="basket-items_reset"><button class="btn-cart-reset" type="button" @click="this.resetBasket">Очистить корзину</button></td>
+							<td class="basket-items_reset">
+							<button class="btn-cart-reset" type="button" @click="this.resetBasket">Очистить корзину</button>
+							<a class="btn-cart-reset btn-cart-order" type="button" href="/user/order">Заказать</a>
+							</td>
 							<td class="basket-items_price basket_total_price"><b>Итого:</b> {{ this.sumOfProductsCart }} руб.</td>
 						</tr>
 					</tbody>

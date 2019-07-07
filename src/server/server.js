@@ -5,6 +5,7 @@ const app = express();
 const path = require("path");
 const PORT = process.env.PORT || 5000;
 const nodemailer = require("nodemailer");
+const handlerSessions = require('./handlerSessions');
 const handlerData = require("./handlerData");
 var cookieParser = require('cookie-parser');
 const session = require("express-session");
@@ -110,20 +111,20 @@ let transporter = nodemailer.createTransport({
 	}
 });
 
-let loadUser = function (req, res, next) {
-	if (req.session.user_id) {
-		User.findById(req.session.user_id, function (user) {
-			if (user) {
-				req.currentUser = user;
-				next();
-			} else {
-				res.redirect("/form/login");
-			}
-		});
-	} else {
-		res.redirect("/form/login");
-	}
-};
+//let loadUser = function (req, res, next) {
+//	if (req.session.user_id) {
+//		User.findById(req.session.user_id, function (user) {
+//			if (user) {
+//				req.currentUser = user;
+//				next();
+//			} else {
+//				res.redirect("/form/login");
+//			}
+//		});
+//	} else {
+//		res.redirect("/form/login");
+//	}
+//};
 
 //const catalogRouter = express.Router();
 //catalogRouter.use("/:id", (req, res) => res.render('index', {id: req.params.id}));
@@ -162,11 +163,11 @@ app.get("/:page", (req, res) => {
 });
 app.get("/catalog/:id", (req, res) => {
 	res.render("index.ejs", {
-				page: "catalog",
-				id: req.params.id,
-				user: res.locals.user.id,
-				login: res.locals.user.login
-			});
+		page: "catalog",
+		id: req.params.id,
+		user: res.locals.user.id,
+		login: res.locals.user.login
+	});
 	app.use("/catalog/", express.static("dist/public"));
 });
 app.get("/form/registration", redirectHome, (req, res) => {
@@ -281,6 +282,7 @@ app.post("/form/login", redirectHome, function (req, res) {
 				//	});
 				//	handlerData(req, res, 'add', 'dist/server/db/userData.json');
 				req.session.userId = findUser.id;
+
 				res.render("index.ejs", {
 					status_login: true,
 					page: "main",
@@ -307,6 +309,41 @@ app.get("/user/logout", redirectLogin, function (req, res) {
 	});
 });
 
-//app.use("/catalog", catalogRouter);
+app.get("/user/order", redirectLogin, function (req, res) {
+	const userID = res.locals.user.id;
+	const login = res.locals.user.login;
+	fs.readFile("dist/server/db/userCart.json", "utf-8", (err, data) => {
+		if (err) {
+			console.log("app.get/user/order: Ошибка при чтении файла dist/server/db/userCart.json");
+		} else {
+			let userCart = JSON.parse(data)[0][userID];
+			let dataCart = JSON.stringify(userCart);
+			console.log(`userCart order ${userCart}`);
+			let message =
+					"<b>Пользователь </b>" +
+					login +
+					"<br><p>Заказал: </p><br>" +
+					dataCart;
+				console.log(message);
+				transporter.sendMail({
+					from: "astraliq457@gmail.com",
+					to: "astraliq457@gmail.com",
+					subject: "Новый заказ!",
+					text: "Новый заказ!",
+					html: message
+				});
+			handlerSessions(req, res, 'clear', 'dist/server/db/userCart.json');
+			res.render("order.ejs", {
+				page: req.params.page,
+				id: res.locals.user.id,
+				user: res.locals.user.id,
+				login: res.locals.user.login,
+				dataCart: dataCart
+			});
+		}
+	});
+	app.use("/user/", express.static("dist/public"));
+
+});
 
 app.listen(PORT, () => console.log(`Listening on ${PORT}`));

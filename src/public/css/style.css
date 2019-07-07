@@ -623,7 +623,7 @@ input[type=button]:active {
   z-index: 5;
 }
 .basket {
-  width: 400px;
+  width: 380px;
   max-height: 350px;
   background-color: lightblue;
   border-radius: 20px;
@@ -797,6 +797,7 @@ input[type=button]:active {
   display: block;
   margin: 10px 5px 10px 5px;
 }
+.btn-cart-order,
 .btn-cart-reset {
   background: #3498db;
   background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
@@ -822,6 +823,18 @@ input[type=button]:active {
   background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
   background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
   text-decoration: none;
+}
+.btn-cart-order {
+  width: 160px;
+  height: 45px;
+  background-color: #c8002f;
+  margin: 10px 0 0 0;
+  font-weight: 700;
+  font-size: 15px;
+}
+.btn-cart-order:hover {
+  background-color: #a00025;
+  color: darkgray;
 }
 .btn-cart-count {
   width: 10px;
