@@ -6,8 +6,10 @@ const path = require("path");
 const PORT = process.env.PORT || 5000;
 const nodemailer = require("nodemailer");
 const handlerData = require("./handlerData");
+var cookieParser = require('cookie-parser');
 const session = require("express-session");
 app.use(express.json());
+app.use(cookieParser());
 app.use(
 	express.urlencoded({
 		extended: false
@@ -38,10 +40,6 @@ app.use((req, res, next) => {
 	const {
 		userId
 	} = req.session;
-	res.locals.user = {
-		id: null,
-		login: null
-	};
 	if (userId) {
 		fs.readFile("dist/server/db/userData.json", "utf-8", (err, data) => {
 			if (err) {
@@ -59,7 +57,13 @@ app.use((req, res, next) => {
 			}
 			next();
 		});
-	} else next();
+	} else {
+		res.locals.user = {
+			id: req.sessionID,
+			login: null
+		};
+		next();
+	}
 });
 
 app.use("/api/cart", cart);

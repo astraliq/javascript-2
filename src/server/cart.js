@@ -16,6 +16,7 @@ let add = (cart, req, userID) => {
 		Object.assign(cart[0],{ [userID]: cartObj})
 	};
 //	console.log(cart);
+	console.log(cart[0][userID]);
 	return {newCart: JSON.stringify (cart, null, 4), name: req.body.title};
 };
 let change = (cart, req, userID) => {

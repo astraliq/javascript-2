@@ -5,12 +5,17 @@ const fs = require('fs');
 const router = express.Router();
 
 router.get('/', (req, res) => {
+	const userID = res.locals.user.id;
     fs.readFile('dist/server/db/userCart.json', 'utf-8', (err, data) => {
         if(err){
             res.sendStatus(404, JSON.stringify({result: 0, text: err}));
         } else {
-			let userCart = data[0][res.locals.user.id];
-            res.send(userCart);
+			let userCartJSON;
+			if (JSON.parse(data)[0]) {
+				let userCart = JSON.parse(data)[0][userID];
+				userCartJSON = JSON.stringify(userCart);
+			};
+            res.send(userCartJSON);
         }
     })
 });
